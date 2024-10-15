@@ -13,3 +13,28 @@ export async function cadastrarFuncionario(funcionario) {
    let idFuncionario = info.insertId;
    return idFuncionario;
 } 
+
+
+export async function consultarFuncionarioNome(nome) {
+    let comando = `
+        SELECT 
+            id_funcionario      id,
+	        nm_funcionario      nome, 
+	        rg                  rg, 
+            cpf                 cpf, 
+            dt_nascimento       nascimento, 
+            dt_admissao         admissao, 
+            cargo               cargo, 
+            vl_salario          salario, 
+            bt_ativo            ativo, 
+            ct_telefone         telefone, 
+            ct_email            email
+        FROM tb_funcionarios
+        WHERE nm_funcionario like ?;
+    `
+
+    let resposta = await connection.query(comando, '%' + [nome] + '%');
+    let registros = resposta[0];
+
+    return registros;
+}

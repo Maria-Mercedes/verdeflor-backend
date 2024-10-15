@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { cadastrarFuncionario } from '../repository/funcionarioRepository.js';
+import { cadastrarFuncionario, consultarFuncionarioNome } from '../repository/funcionarioRepository.js';
 
 const endpoints = Router();
 
@@ -21,6 +21,22 @@ endpoints.post('/cadastrar/funcionario', async (req, resp) => {
        }) 
     }
 
+})
+
+
+endpoints.get('/buscar/funcionario', async (req, resp) => {
+    try {
+        let nome = req.query.nome;
+        let registros = await consultarFuncionarioNome(nome);
+    
+        resp.send(registros);
+    }
+
+    catch (error) {
+        resp.send({
+            erro: error
+        })
+    }
 })
 
 export default endpoints;
