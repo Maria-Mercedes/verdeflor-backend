@@ -38,3 +38,27 @@ export async function consultarFuncionarioNome(nome) {
 
     return registros;
 }
+
+export async function consultarFuncionarioId(id) {
+    let comando = `
+        SELECT 
+            id_funcionario      id,
+	        nm_funcionario      nome, 
+	        rg                  rg, 
+            cpf                 cpf, 
+            dt_nascimento       nascimento, 
+            dt_admissao         admissao, 
+            cargo               cargo, 
+            vl_salario          salario, 
+            bt_ativo            ativo, 
+            ct_telefone         telefone, 
+            ct_email            email
+        FROM tb_funcionarios
+        WHERE id_funcionario like ?;
+    `
+
+    let resposta = await connection.query(comando, '%' + [id] + '%');
+    let registros = resposta[0];
+
+    return registros;
+}
