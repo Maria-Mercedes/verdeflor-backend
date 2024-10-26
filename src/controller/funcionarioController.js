@@ -18,8 +18,8 @@ endpoints.post('/cadastrar/funcionario', async (req, resp) => {
 
     } 
     catch (error) {
-       resp.send({
-        erro: error
+       resp.status(400).send({
+        erro: error.message
        }) 
     }
 
@@ -37,8 +37,8 @@ endpoints.get('/buscar/funcionario', async (req, resp) => {
     }
 
     catch (error) {
-        resp.send({
-            erro: error
+        resp.status(400).send({
+            erro: error.message
         })
     }
 })
