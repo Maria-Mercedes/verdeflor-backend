@@ -52,8 +52,8 @@ endpoints.get('/buscar/funcionario/:id', async (req, resp) => {
         resp.send(funcionario);
     } 
     catch(error) {
-        resp.send({
-            erro: error
+        resp.status(400).send({
+            erro: error.message
         })
     }
  })
