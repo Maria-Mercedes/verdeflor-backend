@@ -102,3 +102,13 @@ export async function EditarFuncionario(id, funcionario) {
     let [info] = await connection.query(comando, [funcionario.nome, funcionario.cpf, funcionario.telefone, funcionario.cargo, funcionario.jornada, funcionario.salario, funcionario.dtAdmissao, funcionario.estaAtivo, id]);
     return info.affectedRows;
 }
+
+export async function excluirFuncionario(funcionario) {
+    let comando = `
+        DELETE FROM tb_funcionarios
+        WHERE id_funcionario = ?
+    `
+
+    let [info] = await connection.query(comando, [funcionario.id]);
+    return info.affectedRows;
+}

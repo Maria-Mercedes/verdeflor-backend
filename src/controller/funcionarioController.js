@@ -5,6 +5,7 @@ import consultarFuncionarioService from '../service/funcionario/consultarFuncion
 import consultarFuncionarioIdService from '../service/funcionario/consultarFuncionarioIdService.js';
 import listarFuncionariosService from '../service/funcionario/listarFuncionariosService.js';
 import editarFuncionarioService from '../service/funcionario/editarFuncionarioService.js';
+import excluirFuncionarioService from '../service/funcionario/excluirFuncionarioService.js';
 
 const endpoints = Router();
 
@@ -94,6 +95,27 @@ endpoints.get('/buscar/funcionario/:id', autenticar, async (req, resp) => {
         resp.status(400).send({
             erro: error.message
         })
+    }
+ })
+
+ endpoints.delete('/excluir/funcionario', autenticar, async (req, resp) => {
+    try {
+        let id = req.body;
+
+        let linhasAfetadas = await excluirFuncionarioService(id);
+
+        if (linhasAfetadas > 0) {
+            resp.send({
+                resposta: `Funcionário de ID ${req.body.id} excluído com sucesso.`,
+                linhasAfetadas: linhasAfetadas
+            })
+        } else {
+            resp.send({
+                resposta: "ID não encontrado."
+            })
+        }
+    } catch (error) {
+        
     }
  })
 
