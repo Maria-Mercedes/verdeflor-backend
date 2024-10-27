@@ -1,11 +1,14 @@
 import {Router} from 'express';
+import { autenticar } from '../utils/jwt.js';
 import cadastrarFuncionarioService  from '../service/funcionario/cadastrarFuncionarioService.js'
 import consultarFuncionarioService from '../service/funcionario/consultarFuncionarioService.js';
 import consultarFuncionarioIdService from '../service/funcionario/consultarFuncionarioIdService.js';
+import listarFuncionariosService from '../service/funcionario/listarFuncionariosService.js';
+import editarFuncionarioService from '../service/funcionario/editarFuncionarioService.js';
 
 const endpoints = Router();
 
-endpoints.post('/cadastrar/funcionario', async (req, resp) => {
+endpoints.post('/cadastrar/funcionario', autenticar, async (req, resp) => {
 
     try {
         let funcionario = req.body;
@@ -25,8 +28,19 @@ endpoints.post('/cadastrar/funcionario', async (req, resp) => {
 
 })
 
+endpoints.get('/buscar/funcionarios', autenticar, async (req, resp) => {
+    try {
+        let registros = await listarFuncionariosService();
+        resp.send(registros);
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+})
 
-endpoints.get('/buscar/funcionario', async (req, resp) => {
+
+endpoints.get('/buscar/funcionario', autenticar, async (req, resp) => {
 //http://localhost:5001/buscar/funcionario?nome=
 
     try {
@@ -43,7 +57,7 @@ endpoints.get('/buscar/funcionario', async (req, resp) => {
     }
 })
 
-endpoints.get('/buscar/funcionario/:id', async (req, resp) => {
+endpoints.get('/buscar/funcionario/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 
@@ -52,6 +66,31 @@ endpoints.get('/buscar/funcionario/:id', async (req, resp) => {
         resp.send(funcionario);
     } 
     catch(error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+ })
+
+ endpoints.put('/editar/funcionario/:id', autenticar, async (req, resp) => {
+    try {
+        let id = req.params.id;
+        let funcionario = req.body;
+
+        let linhasAfetadas = await editarFuncionarioService(id, funcionario);
+
+        if (linhasAfetadas > 0) {
+            resp.send({
+                resposta: "Alteração realizada com sucesso!",
+                linhasAfetadas: linhasAfetadas
+            })
+        } else {
+            resp.send({
+                resposta: "ID não encontrado."
+            })
+        }
+
+    } catch (error) {
         resp.status(400).send({
             erro: error.message
         })
