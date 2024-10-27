@@ -12,10 +12,10 @@ export async function cadastrarFuncionario(funcionario) {
             salario, 
             dt_admissao, 
             ativo)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+        VALUES (?, ?, ?, ?, ?, ?, ?, true);
     `
 
-    let resposta = await connection.query(comando, [funcionario.nome, funcionario.cpf, funcionario.telefone, funcionario.cargo, funcionario.jornada, funcionario.salario, funcionario.dtAdmissao, funcionario.estaAtivo]);
+    let resposta = await connection.query(comando, [funcionario.nome, funcionario.cpf, funcionario.telefone, funcionario.cargo, funcionario.jornada, funcionario.salario, funcionario.dtAdmissao]);
     let info = resposta[0]
 
     let idFuncionario = info.insertId;

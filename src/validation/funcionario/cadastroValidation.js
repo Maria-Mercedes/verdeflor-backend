@@ -6,5 +6,4 @@ export default function validarCadastro(funcionario) {
     if (!funcionario.jornada) throw new Error('Jornada é obrigatório!');
     if (!funcionario.salario) throw new Error('Salario é obrigatório!');
     if (!funcionario.dtAdmissao) throw new Error('Data de admissão é obrigatório!');
-    if (!funcionario.estaAtivo == undefined) throw new Error('Situação é obrigatório!');
 }
