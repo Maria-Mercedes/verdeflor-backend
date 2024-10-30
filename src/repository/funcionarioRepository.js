@@ -76,7 +76,7 @@ export async function consultarFuncionarioId(id) {
             dt_admissao         'Data de Admissão', 
             ativo               Ativo
         FROM tb_funcionarios
-        WHERE id_funcionario like ?;
+        WHERE id_funcionario = ?;
     `
 
     let resposta = await connection.query(comando, '%' + [id] + '%');
