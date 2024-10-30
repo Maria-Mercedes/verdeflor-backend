@@ -11,13 +11,27 @@ CREATE TABLE tb_usuario (
 CREATE TABLE tb_funcionarios (
     id_funcionario INT PRIMARY KEY AUTO_INCREMENT,
     nm_funcionario VARCHAR(100),
-    cpf VARCHAR(11),
+    cpf VARCHAR(14),
     telefone VARCHAR(15),
     cargo VARCHAR(40),
     jornada VARCHAR(50),
-    salario FLOAT(10),
+    salario DECIMAL(10,2),
     dt_admissao DATE,
     ativo BOOLEAN
+);
+
+CREATE TABLE tb_servicos (
+	id_servico INT PRIMARY KEY AUTO_INCREMENT,
+    nome_cliente VARCHAR(100),
+    documento_cliente VARCHAR(19),
+    endereco VARCHAR(200),
+    tipo_servico VARCHAR (50),
+    orcamento DECIMAL(10,2),
+    dt_contratacao DATE,
+    id_funcionario INT,
+    CONSTRAINT FK_id_funcionario FOREIGN KEY (id_funcionario)
+    REFERENCES tb_funcionarios(id_funcionario),
+	ativo BOOLEAN
 );
 /*----------------------------------------------------------*/
 
@@ -50,6 +64,17 @@ INSERT INTO tb_funcionarios (
 	dt_admissao, 
 	ativo)
 VALUES (?, ?, ?, ?, ?, ?, ?, true);
+
+INSERT INTO tb_funcionarios (	
+	nm_funcionario,
+	cpf,
+    telefone,
+	cargo,
+    jornada,
+	salario, 
+	dt_admissao, 
+	ativo)
+VALUES ('Maria Mercedes S R', '000.000.000-00', '11961428499', 'Linda', '0x7', 10000, '2003-12-22', true);
 
 UPDATE 
 	tb_funcionarios 
@@ -96,16 +121,59 @@ WHERE
 DELETE FROM 
 	tb_funcionarios 
 WHERE 
-	id_fincionario = ?;
+	id_funcionario = ?;
  /*---------------------------------------------------------*/
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
+ /*------------ COMANDOS TABELA: tb_servicos ------------*/
+  DROP TABLE tb_servicos;
+
+INSERT INTO tb_servicos (	
+	nome_cliente,
+    documento_cliente,
+    endereco,
+    tipo_servico,
+    orcamento,
+    dt_contratacao,
+    id_funcionario,
+	ativo)
+VALUES (?, ?, ?, ?, ?, ?, ?, true);
+
+INSERT INTO tb_servicos (	
+	nome_cliente,
+    documento_cliente,
+    endereco,
+    tipo_servico,
+    orcamento,
+    dt_contratacao,
+    id_funcionario,
+	ativo)
+VALUES ('Maria', '0000000000', 'Rua Botucatu, 776', 'Jardinagem', 5000, '2003-12-22', 2, true);
+
+UPDATE 
+	tb_servicos 
+		SET 
+			nome_cliente = ?,
+			documento_cliente = ?,
+			endereco = ?,
+			tipo_servico = ?,
+			orcamento = ?,
+			dt_contratacao = ?,
+			id_funcionario = ?,
+			ativo = ?
+WHERE 
+	id_servico = ?;
+
+SELECT 
+	nome_cliente		'Nome Cliente',
+    documento_cliente	'CPF/CNPJ',
+    endereco			Endereço,
+    tipo_servico		'Tipo de Serviço',
+    orcamento			'Orçamento',
+    dt_contratacao		'Data de Contratação',
+    id_funcionario		'ID Funcionário',	
+	ativo				Ativo
+FROM
+    tb_servicos;
