@@ -11,7 +11,7 @@ export async function cadastrarServicoPrestado (servicoPrestado) {
         dt_contratacao,
         id_funcionario,
         ativo)
-    VALUES (?, ?, ?, ?, ?, ?, ?, true);
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
     `
     let resposta = await connection.query(comando, [servicoPrestado.nomeCliente, servicoPrestado.documentoCliente, servicoPrestado.endereco, servicoPrestado.tipoServico, servicoPrestado.orcamento, servicoPrestado.dtContratacao, servicoPrestado.idFuncionario, servicoPrestado.estaAtivo]);
     let info = resposta[0]
