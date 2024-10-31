@@ -75,10 +75,10 @@ export async function consultarFuncionarioId(id) {
             dt_admissao         'DataAdmissao', 
             ativo               Ativo
         FROM tb_funcionarios
-        WHERE id_funcionario = ?;
+        WHERE id_funcionario = ?
     `
 
-    let resposta = await connection.query(comando, '%' + [id] + '%');
+    let resposta = await connection.query(comando, [id]);
     let registros = resposta[0];
 
     return registros;

@@ -40,8 +40,6 @@ endpoints.get('/buscar/funcionarios', autenticar, async (req, resp) => {
     }
 })
 
-
-/*
 endpoints.get('/buscar/funcionario', autenticar, async (req, resp) => {
 //http://localhost:5001/buscar/funcionario?nome=
 
@@ -74,7 +72,7 @@ endpoints.get('/buscar/funcionario/:id', autenticar, async (req, resp) => {
     }
  })
 
-*/
+
 
  endpoints.put('/editar/funcionario/:id', autenticar, async (req, resp) => {
     try {
