@@ -31,7 +31,7 @@ export async function listarFuncionarios() {
             cargo 				    Cargo,
             jornada 				Jornada,
             salario 				Salário,
-            dt_admissao			    'Data de Admissão',
+            dt_admissao			    'DataAdmissao',
             ativo 				    Ativo
         FROM tb_funcionarios;
     `
@@ -50,7 +50,7 @@ export async function consultarFuncionarioNome(nome) {
             cargo               Cargo,
             jornada             Jornada,
             salario             Salário, 
-            dt_admissao         'Data de Admissão', 
+            dt_admissao         'Data de Admissao', 
             ativo               Ativo
         FROM tb_funcionarios
         WHERE nm_funcionario like ?;
@@ -72,7 +72,7 @@ export async function consultarFuncionarioId(id) {
             cargo               Cargo,
             jornada             Jornada,
             salario             Salário, 
-            dt_admissao         'Data de Admissão', 
+            dt_admissao         'DataAdmissao', 
             ativo               Ativo
         FROM tb_funcionarios
         WHERE id_funcionario = ?;
