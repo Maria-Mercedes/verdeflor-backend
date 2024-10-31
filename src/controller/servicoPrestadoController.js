@@ -7,7 +7,7 @@ import editarFuncionarioService from '../service/servicosPrestados/editarServico
 
 const endpoints = Router();
 
-endpoints.post('/cadastrar/prestacao-de-servico', async (req, resp) => {
+endpoints.post('/cadastrar/servico-prestado', autenticar, async (req, resp) => {
     try {
         let servicoPrestado = req.body;
 
@@ -26,7 +26,7 @@ endpoints.post('/cadastrar/prestacao-de-servico', async (req, resp) => {
 })
 
 
-endpoints.get('/listar/servicos-prestados', async (req, resp) => {
+endpoints.get('/listar/servicos-prestados', autenticar, async (req, resp) => {
     try {
         let registros = await listarServicoService();
         resp.send(registros);
@@ -39,7 +39,7 @@ endpoints.get('/listar/servicos-prestados', async (req, resp) => {
 
 export default endpoints;
 
-endpoints.put('/editar/servico-prestado/:id', async (req, resp) => {
+endpoints.put('/editar/servico-prestado/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let servicoPrestado = req.body;
