@@ -40,7 +40,6 @@ export async function listarFuncionarios() {
     return registros;
 }
 
-
 export async function consultarFuncionarioNome(nome) {
     let comando = `
         SELECT 
