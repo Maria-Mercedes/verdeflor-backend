@@ -39,6 +39,22 @@ export async function listarServicos() {
     return registros;
 }
 
+export async function listarFuncionariosAlocados() {
+    let comando = `
+    SELECT 
+	    s.id_servico			ID,
+        s.id_funcionario		IdFuncionario,
+        f.nm_funcionario 		NomeFuncionario
+    FROM
+        tb_servicos s
+    JOIN
+	    tb_funcionarios f ON s.id_funcionario = f.id_funcionario;
+    `
+
+    let [registros] = await connection.query(comando)
+    return registros
+}
+
 export async function buscarServicoPorId(id) {
     let comando = `
     SELECT 
