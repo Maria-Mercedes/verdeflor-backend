@@ -1,8 +1,8 @@
 import {cadastrarServicoPrestado } from '../../repository/servicoRepository.js';
-import validarCadastro from '../../validation/funcionario/cadastroValidation.js';
+import validarCadastroServico from '../../validation/servico/cadastroServicoValidation.js';
 
 export default async function cadastrarServicoService (servicoPrestado) {
-    //validarCadastro(funcionario)
+    validarCadastroServico(servicoPrestado)
     
     let id = await cadastrarServicoPrestado(servicoPrestado);
     return id;

@@ -1,6 +1,6 @@
 import connection from "./connection.js";
 
-export async function cadastrarServicoPrestado (servicoPrestado) {
+export async function cadastrarServicoPrestado(servicoPrestado) {
     let comando = `
     INSERT INTO tb_servicos (	
         nome_cliente,
@@ -24,18 +24,39 @@ export async function listarServicos() {
     let comando = `
     SELECT 
         id_servico			ID,
-        nome_cliente		'Nome Cliente',
-        documento_cliente	'CPF/CNPJ',
-        endereco			Endereço,
-        tipo_servico		'Tipo de Serviço',
-        orcamento			'Orçamento',
-        dt_contratacao		'Data de Contratação',
-        id_funcionario		'ID Funcionário',	
+        nome_cliente		'NomeCliente',
+        documento_cliente	'CPF_CNPJ',
+        endereco			Endereco,
+        tipo_servico		'TipoServico',
+        orcamento			'Orcamento',
+        dt_contratacao		'DataContratacao',
+        id_funcionario		'IdFuncionario',	
         ativo				Ativo
     FROM tb_servicos
     `
 
     let [registros] = await connection.query(comando);
+    return registros;
+}
+
+export async function buscarServicoPorId(id) {
+    let comando = `
+    SELECT 
+        nome_cliente		'NomeCliente',
+        documento_cliente	'CPF_CNPJ',
+        endereco			Endereco,
+        tipo_servico		'TipoServico',
+        orcamento			'Orcamento',
+        dt_contratacao		'DataContratacao',
+        id_funcionario		'IdFuncionario',	
+        ativo				Ativo
+    FROM tb_servicos
+    WHERE id_servico = ?
+    `
+
+    let resposta = await connection.query(comando, [id]);
+    let registros = resposta[0];
+
     return registros;
 }
 
