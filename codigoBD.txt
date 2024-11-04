@@ -167,6 +167,7 @@ WHERE
 	id_servico = ?;
 
 SELECT 
+	id_servico			ID,
 	nome_cliente		'Nome Cliente',
     documento_cliente	'CPF/CNPJ',
     endereco			Endereço,
@@ -177,3 +178,12 @@ SELECT
 	ativo				Ativo
 FROM
     tb_servicos;
+    
+SELECT 
+	s.id_servico			ID,
+    s.id_funcionario		'ID Funcionário',
+    f.nm_funcionario 		nome_funcionario
+FROM
+    tb_servicos s
+JOIN
+	tb_funcionarios f ON s.id_funcionario = f.id_funcionario;
