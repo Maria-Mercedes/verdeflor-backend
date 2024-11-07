@@ -6,6 +6,9 @@ import consultarFuncionarioIdService from '../service/funcionario/consultarFunci
 import listarFuncionariosService from '../service/funcionario/listarFuncionariosService.js';
 import editarFuncionarioService from '../service/funcionario/editarFuncionarioService.js';
 import excluirFuncionarioService from '../service/funcionario/excluirFuncionarioService.js';
+import listarJardineirosService from '../service/funcionario/listarJardineirosService.js';
+import listarTecnicosService from '../service/funcionario/listarTecnicosService.js';
+import listarAgronomosService from '../service/funcionario/listarAgronomosService.js';
 
 const endpoints = Router();
 
@@ -33,6 +36,39 @@ endpoints.get('/buscar/funcionarios', autenticar, async (req, resp) => {
     try {
         let registros = await listarFuncionariosService();
         resp.send(registros);
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+})
+
+endpoints.get('/buscar/jardineiros', autenticar, async (req, resp) => {
+    try {
+        let registros = await listarJardineirosService()
+        resp.send(registros)
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+})
+
+endpoints.get('/buscar/tecnicos', autenticar, async (req, resp) => {
+    try {
+        let registros = await listarTecnicosService()
+        resp.send(registros)
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+})
+
+endpoints.get('/buscar/agronomos', autenticar, async (req, resp) => {
+    try {
+        let registros = await listarAgronomosService()
+        resp.send(registros)
     } catch (error) {
         resp.status(400).send({
             erro: error.message

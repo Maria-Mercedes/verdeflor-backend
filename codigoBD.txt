@@ -102,6 +102,27 @@ SELECT
     ativo 				Ativo
 FROM
     tb_funcionarios;
+    
+SELECT 
+	* 
+FROM 
+	tb_funcionarios 
+WHERE 
+	cargo = 'Jardineiro';
+
+SELECT 
+	* 
+FROM 
+	tb_funcionarios 
+WHERE 
+	cargo = 'Téc. de Irrigação';
+
+SELECT 
+	* 
+FROM 
+	tb_funcionarios 
+WHERE 
+	cargo = 'Agrônomo';
 
 UPDATE 
 	tb_funcionarios
@@ -167,17 +188,20 @@ WHERE
 	id_servico = ?;
 
 SELECT 
-	id_servico			ID,
-	nome_cliente		'Nome Cliente',
-    documento_cliente	'CPF/CNPJ',
-    endereco			Endereço,
-    tipo_servico		'Tipo de Serviço',
-    orcamento			'Orçamento',
-    dt_contratacao		'Data de Contratação',
-    id_funcionario		'ID Funcionário',	
-	ativo				Ativo
-FROM
-    tb_servicos;
+	    s.id_servico		    ID,
+	    s.nome_cliente		    'NomeCliente',
+        s.documento_cliente	    'CPF_CNPJ',
+        s.endereco			    Endereco,
+        s.tipo_servico		    'TipoServico',
+        s.orcamento			    'Orcamento',
+        s.dt_contratacao	    'DataContratacao',
+        s.id_funcionario		'IdFuncionario',
+        f.nm_funcionario	    'NomeFuncionario',	
+	    s.ativo				    Ativo
+    FROM
+        tb_servicos s
+    JOIN 
+	    tb_funcionarios f ON s.id_funcionario = f.id_funcionario;
     
 SELECT 
 	s.id_servico			ID,

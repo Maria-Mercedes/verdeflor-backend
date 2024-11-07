@@ -24,7 +24,8 @@ export async function cadastrarFuncionario(funcionario) {
 
 export async function listarFuncionarios() {
     let comando = `
-        SELECT id_funcionario 		ID,
+        SELECT 
+            id_funcionario 		ID,
 	        nm_funcionario		    Nome,
             cpf					    CPF,
             telefone				Telefone,
@@ -34,6 +35,72 @@ export async function listarFuncionarios() {
             dt_admissao			    'DataAdmissao',
             ativo 				    Ativo
         FROM tb_funcionarios;
+    `
+
+    let [registros] = await connection.query(comando);
+    return registros;
+}
+
+export async function listarJardineiros() {
+    let comando = `
+    SELECT 
+        id_funcionario 		    ID,
+        nm_funcionario		    Nome,
+        cpf					    CPF,
+        telefone				Telefone,
+        cargo 				    Cargo,
+        jornada 				Jornada,
+        salario 				Salário,
+        dt_admissao			    'DataAdmissao',
+        ativo 				    Ativo
+    FROM 
+        tb_funcionarios 
+    WHERE 
+        cargo = 'Jardineiro';
+    `
+
+    let [registros] = await connection.query(comando);
+    return registros;
+}
+
+export async function listarTecnicos() {
+    let comando = `
+    SELECT 
+        id_funcionario 		    ID,
+        nm_funcionario		    Nome,
+        cpf					    CPF,
+        telefone				Telefone,
+        cargo 				    Cargo,
+        jornada 				Jornada,
+        salario 				Salário,
+        dt_admissao			    'DataAdmissao',
+        ativo 				    Ativo
+    FROM 
+	    tb_funcionarios 
+    WHERE 
+	    cargo = 'Téc. de Irrigação';
+    `
+
+    let [registros] = await connection.query(comando);
+    return registros;
+}
+
+export async function listarAgronomos() {
+    let comando = `
+    SELECT 
+        id_funcionario 		    ID,
+        nm_funcionario		    Nome,
+        cpf					    CPF,
+        telefone				Telefone,
+        cargo 				    Cargo,
+        jornada 				Jornada,
+        salario 				Salário,
+        dt_admissao			    'DataAdmissao',
+        ativo 				    Ativo
+    FROM 
+	    tb_funcionarios 
+    WHERE 
+	    cargo = 'Agrônomo';
     `
 
     let [registros] = await connection.query(comando);

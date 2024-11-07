@@ -23,16 +23,20 @@ export async function cadastrarServicoPrestado(servicoPrestado) {
 export async function listarServicos() {
     let comando = `
     SELECT 
-        id_servico			ID,
-        nome_cliente		'NomeCliente',
-        documento_cliente	'CPF_CNPJ',
-        endereco			Endereco,
-        tipo_servico		'TipoServico',
-        orcamento			'Orcamento',
-        dt_contratacao		'DataContratacao',
-        id_funcionario		'IdFuncionario',	
-        ativo				Ativo
-    FROM tb_servicos
+	    s.id_servico		    ID,
+	    s.nome_cliente		    'NomeCliente',
+        s.documento_cliente	    'CPF_CNPJ',
+        s.endereco			    Endereco,
+        s.tipo_servico		    'TipoServico',
+        s.orcamento			    'Orcamento',
+        s.dt_contratacao	    'DataContratacao',
+        s.id_funcionario		'IdFuncionario',
+        f.nm_funcionario	    'NomeFuncionario',	
+	    s.ativo				    Ativo
+    FROM
+        tb_servicos s
+    JOIN 
+	    tb_funcionarios f ON s.id_funcionario = f.id_funcionario;
     `
 
     let [registros] = await connection.query(comando);
