@@ -59,6 +59,38 @@ export async function listarFuncionariosAlocados() {
     return registros
 }
 
+export async function listarFaturamentoAnual() {
+    const comando = `
+    WITH meses_ano AS (
+        SELECT 
+            2024 AS ano,
+            n AS mes
+        FROM 
+            (SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL
+            SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL
+            SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12) AS meses
+    )
+    SELECT 
+        m.ano,
+        m.mes,
+        COALESCE(SUM(s.orcamento), 0) AS total_orcamento
+    FROM 
+        meses_ano AS m
+    LEFT JOIN 
+        tb_servicos AS s 
+        ON YEAR(s.dt_contratacao) = m.ano AND MONTH(s.dt_contratacao) = m.mes
+    WHERE 
+        m.ano = 2024
+    GROUP BY 
+        m.ano, m.mes
+    ORDER BY 
+        m.ano, m.mes;
+    `
+
+    let [registros] = await connection.query(comando)
+    return registros
+}
+
 export async function buscarServicoPorId(id) {
     let comando = `
     SELECT 

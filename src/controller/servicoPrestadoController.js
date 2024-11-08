@@ -5,6 +5,7 @@ import listarServicoService from '../service/servicosPrestados/listarServicoServ
 import editarFuncionarioService from '../service/servicosPrestados/editarServicoPrestadoService.js';
 import { buscarServicoPorIdService } from '../service/servicosPrestados/buscarServicoPorIdService.js';
 import { listarFuncionariosAlocadosService } from '../service/servicosPrestados/listarFuncionariosAlocadosService.js';
+import listarFaturamentoAnualService from '../service/servicosPrestados/listarFaturamentoAnualService.js';
 
 
 const endpoints = Router();
@@ -32,6 +33,17 @@ endpoints.get('/listar/servicos-prestados', autenticar, async (req, resp) => {
     try {
         let registros = await listarServicoService();
         resp.send(registros);
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        })
+    }
+})
+
+endpoints.get('/listar/faturamento-anual', autenticar, async (req, resp) => {
+    try {
+        let registros = await listarFaturamentoAnualService()
+        resp.send(registros)
     } catch (error) {
         resp.status(400).send({
             erro: error.message
